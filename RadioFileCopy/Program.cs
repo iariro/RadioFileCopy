@@ -20,9 +20,24 @@ namespace RadioFileCopy
 
             for (int i = sourceFiles.Length - 1; i >= 0; i--)
             {
-                if (sourceFiles[i].Name != destFile)
+                bool find = false;
+                for (int j = 0; j < destFiles.Length; j++)
+                {
+                    if (sourceFiles[i].Name == destFiles[j].Name)
+                    {
+                        find = true;
+                        break;
+                    }
+                }
+                System.Console.WriteLine(sourceFiles[i].Name + " " + find);
+
+                if (!find)
                 {
                     FileSystem.CopyFile(sourceFiles[i].FullName, args[1]);
+                }
+                else
+                {
+                    break;
                 }
             }
         }
