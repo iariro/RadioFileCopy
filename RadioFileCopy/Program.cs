@@ -16,7 +16,13 @@ namespace RadioFileCopy
 
             FileInfo [] sourceFiles = new DirectoryInfo(args[0]).GetFiles();
             FileInfo[] destFiles = new DirectoryInfo(args[1]).GetFiles();
-            string destFile = destFiles[destFiles.Length - 1].Name;
+            Array.Sort<FileInfo>(
+                sourceFiles,
+                delegate(FileInfo a, FileInfo b)
+                {
+                    // ファイル名でソート
+                    return a.Name.CompareTo(b.Name);
+                });
 
             for (int i = sourceFiles.Length - 1; i >= 0; i--)
             {
@@ -29,11 +35,11 @@ namespace RadioFileCopy
                         break;
                     }
                 }
-                System.Console.WriteLine(sourceFiles[i].Name + " " + find);
 
                 if (!find)
                 {
-                    FileSystem.CopyFile(sourceFiles[i].FullName, args[1]);
+                    Console.WriteLine(string.Format("Copying {0}", sourceFiles[i].Name));
+                    FileSystem.CopyFile(sourceFiles[i].FullName, Path.Combine(args[1], sourceFiles[i].Name));
                 }
                 else
                 {
