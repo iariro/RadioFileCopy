@@ -41,7 +41,7 @@ namespace RadioFileCopy
                     if (!find)
                     {
                         Console.WriteLine(string.Format("Copying {0}", sourceFiles[i].Name));
-                        FileSystem.CopyFile(sourceFiles[i].FullName, Path.Combine(args[1], sourceFiles[i].Name));
+                        FileSystem.CopyFile(sourceFiles[i].FullName, Path.Combine(args[1], sourceFiles[i].Name), UIOption.AllDialogs);
                     }
                     else
                     {
