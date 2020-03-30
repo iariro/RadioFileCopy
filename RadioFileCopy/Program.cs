@@ -43,6 +43,14 @@ namespace RadioFileCopy
 			DriveList driveList = new DriveList();
 			string sourceDir = driveList.CompleteDriveAndPath(args[0]);
 			string destDir = driveList.CompleteDriveAndPath(args[1]);
+            int? limitFileNum = null;
+            for (int i = 2; i < args.Length; i++)
+            {
+                if (args[i].StartsWith("/limitfilenum="))
+                {
+                    limitFileNum = int.Parse(args[i].Split('=')[1]);
+                }
+            }
 
             if (sourceDir == null || destDir == null)
             {
@@ -82,6 +90,19 @@ namespace RadioFileCopy
                     else
                     {
                         break;
+                    }
+                }
+
+                if (limitFileNum != null)
+                {
+                    for (int i = limitFileNum.Value; i < sourceFiles.Length; i++)
+                    {
+                        string path = sourceFiles[sourceFiles.Length - 1 - i].FullName;
+                        Console.WriteLine("Delete? " + path);
+                        if (Console.ReadLine() == "y")
+                        {
+                            File.Delete(path);
+                        }
                     }
                 }
             }
