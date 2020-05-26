@@ -98,8 +98,8 @@ namespace RadioFileCopy
                     for (int i = limitFileNum.Value; i < sourceFiles.Length; i++)
                     {
                         string path = sourceFiles[sourceFiles.Length - 1 - i].FullName;
-                        Console.WriteLine("Delete? " + path);
-                        if (Console.ReadLine() == "y")
+                        Console.WriteLine("Deleting " + path);
+                        //if (Console.ReadLine() == "y")
                         {
                             File.Delete(path);
                         }
